@@ -1,0 +1,120 @@
+/* pages/selectproject/selectproject.css */
+
+.bg-img {
+	position: absolute;
+	width: 150px;
+	top: 50%;
+		left:50%;
+		transform: translate(-50%,-50%);
+}
+
+.box-radius {
+    border-radius: 16rpx;
+    box-shadow: 10rpx 10rpx 5rpx rgba(39, 48, 57, 0.05);
+}
+
+.content-box {
+	margin: 15rpx 27rpx;
+	border-radius: 16rpx;
+	background-color: #ffffff;
+	box-shadow: 10px 10px 5px rgba(39, 48, 57, 0.05);
+}
+
+.content-row {
+	height: 60px;
+	border-radius: 16rpx;
+	border-bottom: 1rpx #f0f0f0 solid;
+	display: flex;
+	flex-direction: row;
+	background-color: #ffffff;
+}
+
+.content-row-column {
+	display: flex;
+	flex-direction: column;
+	padding-top: 6px;
+}
+.content-text {
+	margin: 2px 36px;
+	display: -webkit-box; /*弹性伸缩盒子模型显示*/
+	-webkit-box-orient: vertical; /*排列方式*/ 
+	-webkit-line-clamp: 1; /*显示文本行数(这里控制多少行隐藏)*/
+	overflow: hidden; /*溢出隐藏*/
+	width: 240px;
+	height: 20px;
+	font-size:12px;
+	/* padding: 20px; */
+	text-align: left;
+	/* font-weight: bold; */
+}
+
+
+.content-text1 {
+	display: -webkit-box; /*弹性伸缩盒子模型显示*/
+	-webkit-box-orient: vertical; /*排列方式*/ 
+	-webkit-line-clamp: 1; /*显示文本行数(这里控制多少行隐藏)*/
+	overflow: hidden; /*溢出隐藏*/
+	width: 240px;
+	font-size:12px;
+	padding-left: 20px;
+	text-align: left;
+	/* font-weight: bold; */
+}
+
+.content-text2 {
+	width: 80px;
+	font-size:12px;
+	padding-left: 20px;
+	text-align: left;
+}
+
+.content-input {
+	padding-top: 12px;
+	font-size:11px;
+}
+
+.content-title {
+	height: 35px;
+	display: flex;
+	flex-direction: row;
+}
+
+.title-image-left {
+	width: 10px;
+	height: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+.title-text-right {
+	width: 40px;
+	height: 10px;
+	padding-left: 20px;
+	padding-top: 7px;
+}
+
+.title-text-right-text {
+	color: #497e7e;
+	background-color: #d9f8fa;
+}
+
+.title-text {
+	 text-overflow: ellipsis;
+	    word-break: break-all;
+	    white-space: nowrap;
+	width: 220px;
+	font-size:14px;
+	padding-left: 15px;
+	padding-top: 7px;
+	text-align: left;
+	font-weight: bold;
+	
+	overflow: hidden; /*溢出隐藏*/
+}
+
+.content-row-right-image {
+	width: 10px;
+	height: 10px;
+	padding-left: 5px;
+	padding-top: 10px;
+}

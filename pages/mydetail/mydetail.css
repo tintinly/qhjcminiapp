@@ -1,0 +1,61 @@
+/* pages/mydetail/mydetail.css */
+page{
+  background: #eee;
+}
+.baseInfo{
+  padding:20rpx 10rpx;
+}
+
+.baseInfo text{
+  font-size: 28rpx;
+  color: #6f6f6f;
+}
+
+
+
+.list{
+  color: #6f6f6f;
+  font-size: 32rpx;
+}
+
+ 
+.detail,.sex,.phone,.info{
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+.detail input,.phone input,.info input{
+  text-align:right;
+}
+
+.sex{
+  background: #fff;
+}
+
+
+.radio radio{
+  margin-left: 30rpx;
+}
+ 
+.before-button{
+	
+}
+
+.button{
+  background-color: #24bfd3;
+  color: #fff;
+  width: 92%;
+  padding: 2% 2%;
+  margin: 35rpx auto;
+}
+ 
+
+
+.modal view{
+  text-align: center;
+}
+

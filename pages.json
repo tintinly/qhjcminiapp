@@ -1,0 +1,287 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"navigationStyle": "custom",
+				"backgroundColorTop": "#3881ed"
+			}
+		},		
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/mydetail/mydetail",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
+		},
+		{
+			"path": "pages/test/test",
+			"style": {
+				"navigationBarTitleText": "测试"
+			}
+		},
+		{
+			"path": "pages/placeorder/placeorder",
+			"style": {
+				"navigationBarTitleText": "下单"
+			}
+		},
+		{
+			"path": "pages/select/select",
+			"style": {
+				"navigationBarTitleText": "查询"
+			}
+		},
+		{
+			"path": "pages/selectproject/selectproject",
+			"style": {
+				"navigationBarTitleText": "查询任务"
+			}
+		},
+		{
+			"path": "pages/folder/folder",
+			"style": {
+				"navigationBarTitleText": "点位信息"
+			}
+		},
+		{
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "样品信息"
+			}
+		}
+		// {
+		//     "path" : "pages/post/post",
+		//     "style" : {
+		//         "enablePullDownRefresh": true,
+		//         "navigationBarTitleText": "发现"
+		//     }
+		// },
+		// {
+		//     "path" : "pages/post/postdetail",
+		//     "style" : {
+		//         "navigationBarTitleText": "文章"
+		//     }
+		// }
+	    ,{
+            "path" : "pages/logon/logon",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册"
+            }
+            
+        }
+        ,{
+            "path" : "pages/entrust/entrust",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "检测委托"
+            }
+            
+        }
+        ,{
+            "path" : "pages/customerservice/customerservice",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "客服"
+            }
+            
+        }
+        ,{
+            "path" : "pages/cancelacount/cancelacount",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+				"navigationBarTitleText": "账号注销"
+            }
+            
+        }
+        ,{
+            "path" : "pages/selectorder/selectorder",
+            "style" :                                                                                    
+            {
+				"navigationBarTitleText": "我的订单"
+				// "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/todo/todo",
+            "style" :                                                                                    
+            {
+				"navigationBarTitleText": "提示"
+            }
+            
+        }
+        ,{
+            "path" : "pages/projectdetail/projectdetail",
+            "style" :                                                                                    
+            {
+				"navigationBarTitleText": "任务详情"
+            }
+            
+        }
+        ,{
+            "path" : "pages/option/option",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设置"
+            }
+            
+        }
+        ,{
+            "path" : "pages/about/about",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "关于秋毫",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/selectentrust/selectentrust",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的委托",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/feedback/feedback",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "反馈与建议",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/orderdetail/orderdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单详情",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom",
+				"backgroundColorTop": "#3881ed"
+            }
+        }
+        ,{
+            "path" : "pages/entrustdetail/entrustdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "委托详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/ordercomment/ordercomment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom",
+				"backgroundColorTop": "#3881ed"
+            }
+        }
+		// ,{
+  //           "path" : "pages/entrustcomment/entrustcomment",
+  //           "style" :                                                                                    
+  //           {
+  //               "navigationBarTitleText": "",
+  //               "enablePullDownRefresh": false,
+		// 		"navigationStyle": "custom",
+		// 		"backgroundColorTop": "#3881ed"
+  //           }
+  //       }
+        ,{
+            "path" : "pages/selectinvoice/selectinvoice",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发票记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/invoicedetail/invoicedetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom",
+				"backgroundColorTop": "#3881ed"
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"pageOrientation": "portrait",
+		"navigationBarTitleText": "Hello uniapp",
+		
+		"navigationBarTextStyle": "black",
+		// "navigationBarBackgroundColor": "#F8F8F8",
+		// "backgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#ffffff"
+		
+		// "backgroundColorTop": "#6b6b6c", // 下拉时上部背景颜色
+		// "backgroundColorBottom": "#e9f654"   // 上拉时下部背景颜色
+	},
+	"tabBar": {
+	  "color": "#B0B0B0",
+	  "selectedColor": "#4aa1ed",
+	  // "backgroundColor": " #f7f7f7",
+	  "backgroundColor": " #ffffff",
+	  "borderStyle": "black",
+	  "list": [
+	    {
+	      "pagePath": "pages/home/home",
+	      "text": "首页",
+	      "iconPath": "static/tabbar-icons/unSelected-icons/home.png",
+	      "selectedIconPath": "static/tabbar-icons/selected-icons/home.png"
+	    },
+		// {
+		//   "pagePath": "pages/post/post",
+		//   "text": "发现",
+		//   "iconPath": "static/tabbar-icons/unSelected-icons/faxian_3.png",
+		//   "selectedIconPath": "static/tabbar-icons/selected-icons/faxian_3.png"
+		// },
+	    {
+	      "pagePath": "pages/my/my",
+	      "text": "我的",
+	      "iconPath": "static/tabbar-icons/unSelected-icons/user.png",
+	      "selectedIconPath": "static/tabbar-icons/selected-icons/user.png"
+	    }
+		// ,
+		// {
+		//   "pagePath": "pages/index/index",
+		//   "text": "初始"
+		// },
+		// {
+		//   "pagePath": "pages/test/test",
+		//   "text": "测试"
+		// }
+	  ]
+	},
+	"uniIdRouter": {}
+}

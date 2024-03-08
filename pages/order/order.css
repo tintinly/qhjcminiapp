@@ -1,0 +1,59 @@
+/* pages/order/order.css */
+.box-radius {
+    border-radius: 16rpx;
+    box-shadow: 10rpx 10rpx 5rpx rgba(39, 48, 57, 0.05);
+}
+.content-box {
+	margin: 15rpx 27rpx;
+	border-radius: 16rpx;
+	background-color: #ffffff;
+	box-shadow: 10px 10px 5px rgba(39, 48, 57, 0.05);
+}
+
+.content-row {
+	height: 45px;
+	border-bottom: 1rpx #f0f0f0 solid;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.content-text {
+	width: 80px;
+	font-size:13px;
+	line-height: 45px;
+	padding-left: 20px;
+	text-align: left;
+	font-weight: bold;
+}
+
+.content-input {
+	padding-top: 12px;
+	padding-left: 20px;
+	font-size:13px;
+	
+}
+
+.button{
+	border-radius: 80rpx;
+	margin: 40rpx 50rpx;
+	font-size: 35rpx;
+	background-color: cornflowerblue;
+}
+
+.content-input-picker {
+	width: 190px;
+	padding-top: 12px;
+	padding-left: 20px;
+	font-size:13px;
+	background-image: url(/static/icon/arrow_down.png);
+	background-size: 10px 10px;
+	background-repeat: no-repeat;
+	background-position-x: 190px;
+	background-position-y: 17px;
+}
+
+.content-input-selector {
+	width: 190px;
+	padding-left: 20px;
+}

@@ -1,0 +1,16 @@
+{
+    "id": "DAEWOO-collapseList",
+    "name": "collapse-list折叠列表",
+    "displayName": "collapse-list折叠列表",
+    "version": "1.0.0",
+    "description": "此组件为免费的、开源折叠列表，可用于场景有：省级市，商品分类，上下级部门管理",
+    "keywords": [
+        "折叠组件、折叠列表、折叠选项、分类"
+    ],
+    "dcloudext": {
+        "category": [
+            "前端组件",
+            "通用组件"
+        ]
+    }
+}

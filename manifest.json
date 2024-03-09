@@ -4,7 +4,8 @@
         "setting" : {
             "postcss" : true,
             "minified" : true
-        }
+        },
+		"lazyCodeLoading": "requiredComponents"
     },
     "appid" : "__UNI__AC8C90C",
     "name" : "秋毫质检小程序",

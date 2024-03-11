@@ -147,3 +147,23 @@
 	top : 60rpx;
 	right: 330rpx;
 }
+
+.tab-tag {
+		font-size: 20upx;
+		vertical-align: middle;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		font-family: Helvetica Neue, Helvetica, sans-serif;
+		white-space: nowrap;
+		
+		border-radius: 200upx;
+		position: relative;
+		top: -30upx; 
+		right: 10upx;
+		padding: 0upx 8upx;
+		height: 20upx;
+		color: #ffffff;
+		background-color: #dd514c;
+	}

@@ -28,7 +28,10 @@
 			menuHeight : '', //胶囊的高度
 			menuBot : '', //胶囊距离顶部的高度
 			windowWidth : '' ,//整个设备的宽度
-			unSafeButtomHeight : '' //底部非安全区域高度
+			unSafeButtomHeight : '' ,//底部非安全区域高度
+			
+			// 红点信息
+			redDotCue : {}
 		},
 		methods : {
 			

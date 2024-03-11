@@ -38,7 +38,12 @@
 				<view  class="card-inside" @tap="openComment">
 					<uni-icons class="card-icon" custom-prefix="iconfont" type="icon-shoucang" size="50" color="#2f7efd"></uni-icons>
 					<view class="card-content"> 
-						<view class="card-title"> 客户评价 </view>
+						<view class="card-title"> 
+							客户评价
+							<view class="tab-tag" v-if="toCommentCue > 0" >
+								<block v-if="toCommentCue!=1">{{toCommentCue>99?'99+':toCommentCue}}</block>
+							</view>
+						 </view>
 						<view class="card-desc"> EVALUATE </view>
 					</view>
 				</view>
@@ -65,23 +70,38 @@
 	export default {
 		data () {
 			return {
+				toCommentCue : getApp().globalData.redDotCue.toCommentCue,
+				tab1Cue : getApp().globalData.redDotCue.tab1Cue,
 			}
 		},
 		onLoad() {
+		  var that = this;
 		  var UserLogin = getApp().globalData.UserLogin;
 		  if(!UserLogin){
 			   uni.reLaunch({
 				 url: '../login/login',
 			   })
 		  }
+		  uni.$on('toCommentCue', function(toCommentCue) {
+			  console.log('触发了提示更新事件')
+			  console.log(toCommentCue)
+			  that.toCommentCue = toCommentCue;
+		  })
 		},
-		onshow(){
-			console.log('测试onshow')
-			 setTimeout(() => {
-				uni.showTabBarRedDot({ //显示红点 
-					index: 1 //tabbar下标
-				})
-			 }, 1000)
+		onShow : function (e) {
+			console.log('2');
+			this.toCommentCue = getApp().globalData.redDotCue.toCommentCue
+			this.tab1Cue = getApp().globalData.redDotCue.tab1Cue;
+			if (Number(this.tab1Cue) > 0) {
+				uni.setTabBarBadge({
+					index: 1,
+					text: String(this.tab1Cue),
+				});
+			} else {
+				uni.hideTabBarRedDot({
+					index: 1
+				});
+			}
 		},
 		methods:{
 			change(e) {

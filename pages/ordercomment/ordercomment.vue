@@ -158,6 +158,7 @@
 						    uni.hideLoading()
 							that.back();
 							uni.$emit('refreshOrder', {})
+							loginjs.methods.selectRedDotCue(); // 评价后 更新订单待评价数量
 							uni.showToast({
 								title: '评价成功',
 								icon: 'sucess',

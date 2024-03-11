@@ -198,7 +198,8 @@
 </template>
 
 <script>
-import md5 from '../../common/MD5.js'
+	import md5 from '../../common/MD5.js'
+	import loginjs from '../login/login.js'
 	export default {
 		data () {
 			return {
@@ -724,7 +725,7 @@ import md5 from '../../common/MD5.js'
 															icon: 'none',
 															duration: 2000
 														});
-														
+														loginjs.methods.selectRedDotCue(); // 支付订单后 更新订单待评价数量
 													},
 													fail : function	(res) {
 														

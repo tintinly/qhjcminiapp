@@ -7,6 +7,9 @@
 					success:(res) =>{
 						wx.login({
 							success:(loginData)=>{
+								uni.showLoading({
+									title: '登陆中'
+								});
 								var code = loginData.code;
 								wx.request({
 									url: getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/get-openId',
@@ -42,6 +45,7 @@
 														url: '../mydetail/mydetail',
 													})
 												}
+												uni.hideLoading();
 											},
 											fail: clientData=>{
 												console.log('获取用户信息失败',clientData);
@@ -51,6 +55,7 @@
 												wx.navigateTo({
 													url: '../login/login',
 												});
+												uni.hideLoading();
 											}
 										})
 									},
@@ -61,6 +66,7 @@
 										wx.navigateTo({
 											url: '../login/login',
 										});
+										uni.hideLoading();
 									}
 								})
 								fail: loginData=>{
@@ -69,6 +75,7 @@
 									wx.navigateTo({
 										url: '../login/login',
 									});
+									uni.hideLoading();
 								}
 							}
 						})
@@ -77,6 +84,7 @@
 							wx.navigateTo({
 								url: '../login/login',
 							});
+							uni.hideLoading();
 						}
 					}
 				})
@@ -84,6 +92,7 @@
 			
 			
 			getPhoneNumber(e) {
+				var that = this;
 				var errMsg = e.detail.errMsg
 				if (errMsg.indexOf("fail") > -1) {
 					uni.showToast({
@@ -151,6 +160,7 @@
 														wx.setStorageSync('clientList', clientList);
 														console.log("clientList",clientList);
 														utils.default.IsLogon();
+														that.selectRedDotCue();
 														wx.switchTab({
 															url: '../home/home',
 														})
@@ -160,6 +170,7 @@
 															url: '../logon/logon',
 														})
 													}
+													uni.hideLoading();
 												},
 												fail: clientData=>{
 													console.log('获取用户信息失败',clientData);
@@ -168,10 +179,11 @@
 													wx.navigateTo({
 														url: '../login/login',
 													});
-												},
-												complete: ()=>{
 													uni.hideLoading();
-												}
+												},
+												// complete: ()=>{
+												// 	uni.hideLoading();
+												// }
 											})
 										},
 										fail : (phoneData)=>{
@@ -181,10 +193,11 @@
 											wx.navigateTo({
 												url: '../login/login',
 											});
-										},
-										complete: ()=>{
 											uni.hideLoading();
-										}
+										},
+										// complete: ()=>{
+										// 	uni.hideLoading();
+										// }
 									})
 								},
 								fail: openIdData=>{
@@ -193,10 +206,11 @@
 									wx.navigateTo({
 										url: '../login/login',
 									});
-								},
-								complete: ()=>{
 									uni.hideLoading();
-								}
+								},
+								// complete: ()=>{
+								// 	uni.hideLoading();
+								// }
 						      })
 						} else {
 							console.log('登录失败！' + res.errMsg)
@@ -261,6 +275,7 @@
 													url: '../login/login',
 												})
 											}
+											uni.hideLoading();
 										},
 										fail: clientData=>{
 											console.log('获取用户信息失败',clientData);
@@ -269,10 +284,11 @@
 											wx.navigateTo({
 												url: '../login/login',
 											});
-										},
-										complete: ()=>{
 											uni.hideLoading();
-										}
+										},
+										// complete: ()=>{
+										// 	uni.hideLoading();
+										// }
 									})
 									
 								},
@@ -282,18 +298,77 @@
 									wx.navigateTo({
 										url: '../login/login',
 									});
-								},
-								complete: ()=>{
 									uni.hideLoading();
-								}
+								},
+								// complete: ()=>{
+								// 	uni.hideLoading();
+								// }
 						      })
 						} else {
 							console.log('登录失败！' + res.errMsg)
 						}
 					}
 				})
-			}
+			},
 			
+			selectRedDotCue() {
+				wx.request({
+					url: getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/select-red-dot-cue',
+					data: {
+						openId : getApp().globalData.openId,
+						clientContactId : getApp().globalData.clientList.clientContactId,
+					},
+					method : 'POST',
+					success : (res) => {
+						if (res.statusCode != 200) {
+							uni.hideLoading()
+							uni.showToast({ 
+								title: '网络错误',
+								icon: 'error',
+								duration: 1500
+							})
+						} else if(res.data== {}){
+							wx.showToast({
+								title: '未查到相关信息',
+								icon: 'none',
+								duration: 1500
+							});
+						} else {
+							var data = res.data;
+							console.log(data)
+							Object.keys(data).forEach(k=>{
+								getApp().globalData.redDotCue[k] = data[k];
+								uni.$emit(k, data[k]);
+							})
+							var tab1Cue = getApp().globalData.redDotCue.tab1Cue;
+							if (Number(tab1Cue) > 0) {
+								uni.setTabBarBadge({
+									index: 1,
+									text: String(tab1Cue),
+								});
+							} else {
+								uni.hideTabBarRedDot({
+									index: 1
+								});
+							}
+							uni.hideLoading()
+						}
+					},
+					fail : (res) =>{
+						resolve('fail');
+						console.log(res)
+						uni.hideLoading()
+						uni.showToast({
+							title: '网络错误',
+							icon: 'error',
+							duration: 1500
+						})
+					},
+					// complete: ()=>{
+					// 	uni.hideLoading();
+					// }
+				})
+			}
 		},
 			
 		onUnload: function () {

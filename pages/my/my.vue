@@ -45,15 +45,17 @@
 			<view class="order-card cu-list grid col-2  card-menu ">
 				<view class="cu-item" @click="toPage('../selectorder/selectorder')">
 					<view class="cuIcon-cart text-qhjc-blue" >
-						<view v-if="toCommentSize > 0" class="cu-tag badge" >
-							<block></block>
+						<view v-if="orderCue > 0" class="cu-tag badge" >
+							<block v-if="orderCue!=1">{{orderCue > 99 ? "99+" : orderCue}} </block>
 						</view>
 					</view>
 					<text>我的订单</text>
 				</view>
 				<view class="cu-item" @click="toPage('../selectentrust/selectentrust')">
 					<view class="cuIcon-order text-qhjc-blue" >
-					
+						<view v-if="entrustCue > 0" class="cu-tag badge" >
+							<block v-if="entrustCue!=1">{{entrustCue > 99 ? "99+" : entrustCue}} </block>
+						</view>
 					</view>
 					<text>我的委托</text>
 				</view>
@@ -118,7 +120,7 @@
 	</view>
 </template> 
 <script>
-	import my from './my.js'
+	import my from './my.js';
 	import utils from '../../common/util.js';
 	export default {
 		data () {
@@ -145,6 +147,11 @@
 				companyInfo : {
 					clientNo : 'xxxxxx',
 				},
+				// 提示信息
+				orderCue : getApp().globalData.redDotCue.orderCue,
+				entrustCue : getApp().globalData.redDotCue.entrustCue,
+				tab1Cue : getApp().globalData.redDotCue.tab1Cue,
+				// 其他信息
 				cartIcon: {
 					color: '#4aa1ed',
 					size: '22',
@@ -169,8 +176,7 @@
 					color: '#4aa1ed',
 					size: '22',
 					type: 'chatbubble-filled'
-				},
-				toCommentSize : 0
+				}
 			}
 		},
 		/**
@@ -200,7 +206,20 @@
 		    }
 			uni.$on('updateAvatar',this.updateAvatar)
 			uni.$on('updateInfo',this.updateInfo)
-			
+		},
+		onShow : function (e) {
+			this.orderCue = getApp().globalData.redDotCue.orderCue
+			this.tab1Cue = getApp().globalData.redDotCue.tab1Cue;
+			if (Number(this.tab1Cue) > 0) {
+				uni.setTabBarBadge({
+					index: 1,
+					text: String(this.tab1Cue),
+				});
+			} else {
+				uni.hideTabBarRedDot({
+					index: 1
+				});
+			}
 		},
 		methods:{
 			// 跳转函数
@@ -218,7 +237,7 @@
 				console.log('触发了信息事件',e)
 				this.userInfo.nickName = e.nickName
 				this.clientInfo.phoneNumber = e.phoneNumber
-			}
+			},
 		}
 	}
 </script>

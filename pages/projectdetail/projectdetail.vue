@@ -87,20 +87,52 @@
 						<view class="cu-date">
 							<view class="cu-capsule radius" >
 								<view :class="['cu-tag', lineIndex==4 ? 'bg-blue':'bg-grey']" >计划</view>
-								<view :class="['cu-tag', lineIndex==1 ? 'line-blue':'line-grey']">{{project.ext$.reportplandate ? project.ext$.reportplandate : "/"}}</view>
+								<view :class="['cu-tag', lineIndex==4 ? 'line-blue':'line-grey']">{{project.ext$.reportplandate ? project.ext$.reportplandate : "/"}}</view>
 							</view>
 							<view class="cu-capsule radius" style="margin-left: 30px;">
 								<view :class="['cu-tag', lineIndex==4 ? 'bg-blue':'bg-grey']" >实际</view>
-								<view :class="['cu-tag', lineIndex==4 ? 'line-blue':'line-grey']">{{project.ext$.reportactualdate ? project.ext$.reportactualdate : "/"}}</view>
+								<view :class="['cu-tag', lineIndex==4 ? 'line-blue':'line-grey']">{{project.ext$.reporteditdate ? project.ext$.reporteditdate : "/"}}</view>
 							</view>
 						</view>
 						<view :class="['content', lineIndex==4 ? 'bg-blue':'bg-grey']">
 							<text>分析采样完成，等待数据整理与报告编制</text> 
 						</view>
 					</view>
-					<view :class="['cu-time', lineIndex==5 ? 'text-blue':'text-grey']">报告完成</view>
+					<view :class="['cu-time', lineIndex==5 ? 'text-blue':'text-grey']">报告审核</view>
 					<view :class="['cu-item', lineIndex==5 ? 'text-blue':'text-grey']">
+						<view class="cu-date">
+							<view class="cu-capsule radius" >
+								<view :class="['cu-tag', lineIndex==5 ? 'bg-blue':'bg-grey']" >计划</view>
+								<view :class="['cu-tag', lineIndex==5 ? 'line-blue':'line-grey']">{{project.ext$.reportplandate ? project.ext$.reportplandate : "/"}}</view>
+							</view>
+							<view class="cu-capsule radius" style="margin-left: 30px;">
+								<view :class="['cu-tag', lineIndex==5 ? 'bg-blue':'bg-grey']" >实际</view>
+								<view :class="['cu-tag', lineIndex==5 ? 'line-blue':'line-grey']">{{project.ext$.reportauditdate ? project.ext$.reportauditdate : "/"}}</view>
+							</view>
+						</view>
 						<view :class="['content', lineIndex==5 ? 'bg-blue':'bg-grey']">
+							<text>报告审核</text> 
+						</view>
+					</view>
+					<view :class="['cu-time', lineIndex==6 ? 'text-blue':'text-grey']">报告归档</view>
+					<view :class="['cu-item', lineIndex==6 ? 'text-blue':'text-grey']">
+						<view class="cu-date">
+							<view class="cu-capsule radius" >
+								<view :class="['cu-tag', lineIndex==6 ? 'bg-blue':'bg-grey']" >计划</view>
+								<view :class="['cu-tag', lineIndex==6 ? 'line-blue':'line-grey']">{{project.ext$.reportplandate ? project.ext$.reportplandate : "/"}}</view>
+							</view>
+							<view class="cu-capsule radius" style="margin-left: 30px;">
+								<view :class="['cu-tag', lineIndex==6 ? 'bg-blue':'bg-grey']" >实际</view>
+								<view :class="['cu-tag', lineIndex==6 ? 'line-blue':'line-grey']">{{project.ext$.reportissuedate ? project.ext$.reportissuedate : "/"}}</view>
+							</view>
+						</view>
+						<view :class="['content', lineIndex==6 ? 'bg-blue':'bg-grey']">
+							<text>报告审核</text> 
+						</view>
+					</view>
+					<view :class="['cu-time', lineIndex==7 ? 'text-blue':'text-grey']">报告完成</view>
+					<view :class="['cu-item', lineIndex==7 ? 'text-blue':'text-grey']">
+						<view :class="['content', lineIndex==7 ? 'bg-blue':'bg-grey']">
 							<text>报告完成，请查看文件列表（已盖章）文件</text> 
 						</view>
 					</view>
@@ -223,11 +255,17 @@
 								case "报告编制":
 									this.lineIndex = 4;
 									break
-								case "报告归档":
+								case "报告审核":
 									this.lineIndex = 5;
 									break
+								case "报告签发":
+									this.lineIndex = 6;
+									break
+								case "报告归档":
+									this.lineIndex = 7;
+									break
 								default:
-									this.lineIndex = 5;
+									this.lineIndex = 7;
 									break
 							}
 							

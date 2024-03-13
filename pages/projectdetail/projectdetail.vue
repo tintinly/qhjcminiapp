@@ -271,6 +271,14 @@
 							
 						    wx.hideLoading()
 						}
+					},
+					fail : (res) =>{
+						wx.hideLoading()
+						wx.showToast({
+							title: '网络错误',
+							icon: 'none',
+							duration: 1500
+						});
 					}
 				})
 			},

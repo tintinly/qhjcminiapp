@@ -114,7 +114,7 @@
 							<text>报告审核</text> 
 						</view>
 					</view>
-					<view :class="['cu-time', lineIndex==6 ? 'text-blue':'text-grey']">报告归档</view>
+					<view :class="['cu-time', lineIndex==6 ? 'text-blue':'text-grey']">报告签发</view>
 					<view :class="['cu-item', lineIndex==6 ? 'text-blue':'text-grey']">
 						<view class="cu-date">
 							<view class="cu-capsule radius" >

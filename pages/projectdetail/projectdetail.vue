@@ -127,7 +127,7 @@
 							</view>
 						</view>
 						<view :class="['content', lineIndex==6 ? 'bg-blue':'bg-grey']">
-							<text>报告审核</text> 
+							<text>报告签发</text> 
 						</view>
 					</view>
 					<view :class="['cu-time', lineIndex==7 ? 'text-blue':'text-grey']">报告完成</view>

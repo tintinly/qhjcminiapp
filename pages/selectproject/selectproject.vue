@@ -1,10 +1,13 @@
 <template>
 	<view>
-		<view  class="bg-img" v-if="noData"><image mode="widthFix" src="../../static/image/noData.png"></image></view>
+		<view v-if="warning" class="topTip">
+			<text class="cuIcon-warn text-yellow margin-right-sm"></text><text class="">未找到所属企业，请前往<text class="text-blue" @click="toPage('../mydetail/mydetail', true)">个人信息</text>中维护</text>
+		</view>
+		<sunway-empty-data v-if="noData" imgSrc="/static/image/cue/empty.svg"></sunway-empty-data>
 		<view class="margin bg-white box-radius" v-for="item in projectList"  @tap="toPage('../projectdetail/projectdetail?projId=' + item.projId)">
 			<view class="flex flex-wrap padding-xs  solid-bottom align-center radius">
 				<view class="text-cut" style="flex-basis: 70% ">
-					<text class="cuIcon-form text-sm text-qhjc-blue margin-right-xs"></text><text class="text-bold">{{item.projName}}</text>
+					<text class="cuIcon-form text-sm text-sunway-blue margin-right-xs"></text><text class="text-bold">{{item.projName}}</text>
 				</view>
 				<view style="flex-basis: 30%">
 					<view class=" fr title-text-right-text padding-lr padding-xs">{{item.projNode}}</view>
@@ -21,73 +24,36 @@
 </template>
 
 <script>
-	import selectproject from './selectproject.js'
+	import selectproject from './selectproject.js';
+	import { HTTP } from '../../common/http.js';
 	export default {
 		data () {
 			return {
 				noData : true,
 				projectList : [],
+				clientContactId : getApp().globalData.userInfo.clientContactId,
 			}
+		},
+		computed : {
+			warning(e) {
+				return this.clientContactId == undefined || this.clientContactId == '';
+			},
 		},
 		/**
 		 * 生命周期函数--监听页面加载
 		 */
 		onLoad: function (options) {
-			wx.showLoading({
-				title : '查询中'
-			})
-			wx.request({
-				url : getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/select-contract',
-				data : {
-					clientNo : options.clientNo
-				},
-				method : getApp().globalData.method,
-				success : (projectList) => {
-					if(projectList.statusCode != 200){
-						this.projectList = []
-						this.noData = true
-						wx.showToast({
-							title: '网络错误',
-							icon: 'none',
-							duration: 1500
-						});
-					}else if(projectList.data.length == 0){
-						this.projectList = []
-						this.noData = true
-						wx.showToast({
-							title: '未查到相关信息',
-							icon: 'none',
-							duration: 1500
-						});
-					}else{
-						var dataList = projectList.data;
-						console.log('dataList',dataList)
-						var projectList = [];
-						for(var i = 0 ; i < dataList.length ; i++){
-							projectList[projectList.length] = {
-								projId : dataList[i].projId,
-								projName : dataList[i].projName,
-								projNode : dataList[i].projNode,
-								projNo : dataList[i].projNo !== undefined ?  dataList[i].projNo : '无',
-								createdTime : dataList[i].createdTime,
-								fileList : dataList[i].projFile
-							}
-						}
-						this.projectList = projectList;
-						this.noData = false
-					    wx.hideLoading()
-					}
-				},
-				fail : (res) =>{
-					console.log(res)
-					uni.hideLoading()
-					uni.showToast({
-						title: '网络错误',
-						icon: 'error',
-						duration: 1500
-					})
-				}
-			})
+			var _this = this;
+			uni.$on('updateUserInfo',function(e) {
+				_this.clientContactId = e.clientContactId
+				if (_this.clientContactId != undefined && _this.clientContactId != '') {
+					_this.loadData();
+				};
+			});
+			this.loadData();
+		},
+		onUnload() {
+			uni.$off('updateUserInfo');
 		},
 		// onPullDownRefresh () {
 		// 	    console.log('触发下拉刷新了')
@@ -106,7 +72,6 @@
 					},
 					method : getApp().globalData.method,
 					success : (fileData) => {
-									console.log(fileData);
 						if(fileData.data != ''){
 							this.downloadFile(fileData.data[0].downloadUrl);
 						}else{
@@ -145,6 +110,35 @@
 			    }
 			  });
 			},
+			
+			loadData : function(e) {
+				HTTP(`/open/emc/projectfunction/module/bp/wechat/select-contract`,{
+					clientNo : getApp().globalData.userInfo.clientNo
+				}).then(res=>{
+					var dataList = res.data;
+					if(dataList.length == 0){
+						this.projectList = []
+						this.noData = true
+					}else{
+						var projectList = [];
+						for(var i = 0 ; i < dataList.length ; i++){
+							projectList[projectList.length] = {
+								projId : dataList[i].projId,
+								projName : dataList[i].projName,
+								projNode : dataList[i].projNode,
+								projNo : dataList[i].projNo !== undefined ?  dataList[i].projNo : '无',
+								createdTime : dataList[i].createdTime,
+								fileList : dataList[i].projFile
+							}
+						}
+						this.projectList = projectList;
+						this.noData = false
+					}
+				}).catch(err=>{
+					var projectList = [];
+					this.noData = false
+				});
+			}
 		},
 	}
 </script>

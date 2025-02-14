@@ -18,13 +18,14 @@
 			  </view>
 			 
 		  </view>
-		<button class="button bg-qhjc-blue" @click="submit"><text class="text-white">提交</text></button>
+		<button class="button bg-sunway-blue" @click="submit"><text class="text-white">提交</text></button>
 	
 		<button class="menuButton" open-type="feedback"><text class="text-lg">微信官方反馈</text></button>
 	</view>
 </template>
 
 <script>
+	import { HTTP } from '../../common/http.js';
 	export default {
 		data() {
 			return {
@@ -33,52 +34,37 @@
 			}
 		},
 		methods: {
+			back : function(e) {
+			// 在C页面内 navigateBack，将返回A页面
+				uni.navigateBack({
+					delta: 1
+				});
+			},
 			spyInput:function(e){
 				console.log(e)
 			   this.wordCount = e.detail.cursor
 			   this.feedbackContent = e.detail.value
 			},
 			submit : function (e) {
-				uni.showLoading({
-					title : '加载中'
-				})
-				uni.request({
-					url : getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/submit-feedback',
-					data : {
-						feedbackContent : this.feedbackContent,
-						openId : getApp().globalData.openId,
-						clientId : getApp().globalData.clientList.clientId,
-						clientContactId : getApp().globalData.clientList.clientContactId
-						
-					},
-					method : getApp().globalData.method,
-					success : (res) => {
-						if(res.statusCode != 200){
-							uni.hideLoading()
-							uni.showToast({
-								title: '发生错误',
-								icon: 'none',
-								duration: 1500
-							});
-						}else{
-						    uni.hideLoading()
-							uni.navigateBack()
-							uni.showToast({
-								title: '反馈成功',
-								icon: 'sucess',
-								duration: 1500
-							});
+				var _this = this;
+				HTTP(`/open/emc/projectfunction/module/bp/wechat/submit-feedback`,{
+					feedbackContent : this.feedbackContent,
+					openId : getApp().globalData.openId,
+					clientId : getApp().globalData.userInfo.clientId,
+					clientContactId : getApp().globalData.userInfo.clientContactId
+				}).then(res=>{
+					uni.showToast({
+						title: '反馈成功',
+						icon: 'sucess',
+						duration: 1500,
+						success : res=>{
+							setTimeout(function () { 
+								_this.back();
+							 }, 1000) 
 						}
-					},
-					fail : (res) => {
-						uni.hideLoading()
-						uni.showToast({
-							title: '网络错误',
-							icon: 'none',
-							duration: 1500
-						});
-					}
-				})
+					});
+				}).catch(err=>{
+				});
 			}
 		}
 	}

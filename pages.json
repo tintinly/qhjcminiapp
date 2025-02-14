@@ -1,9 +1,19 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path" : "pages/judgelogin/judgelogin",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录"
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -33,21 +43,9 @@
 			}
 		},
 		{
-			"path": "pages/test/test",
-			"style": {
-				"navigationBarTitleText": "测试"
-			}
-		},
-		{
 			"path": "pages/placeorder/placeorder",
 			"style": {
 				"navigationBarTitleText": "下单"
-			}
-		},
-		{
-			"path": "pages/select/select",
-			"style": {
-				"navigationBarTitleText": "查询"
 			}
 		},
 		{
@@ -67,45 +65,24 @@
 			"style": {
 				"navigationBarTitleText": "样品信息"
 			}
-		}
-		// {
-		//     "path" : "pages/post/post",
-		//     "style" : {
-		//         "enablePullDownRefresh": true,
-		//         "navigationBarTitleText": "发现"
-		//     }
-		// },
-		// {
-		//     "path" : "pages/post/postdetail",
-		//     "style" : {
-		//         "navigationBarTitleText": "文章"
-		//     }
-		// }
-	    ,{
-            "path" : "pages/logon/logon",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "注册"
-            }
-            
-        }
-        ,{
+		},
+		{
             "path" : "pages/entrust/entrust",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "检测委托"
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/customerservice/customerservice",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "客服"
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/cancelacount/cancelacount",
             "style" :                                                                                    
             {
@@ -113,8 +90,8 @@
 				"navigationBarTitleText": "账号注销"
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/selectorder/selectorder",
             "style" :                                                                                    
             {
@@ -122,32 +99,32 @@
 				// "navigationStyle": "custom"
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/todo/todo",
             "style" :                                                                                    
             {
 				"navigationBarTitleText": "提示"
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/projectdetail/projectdetail",
             "style" :                                                                                    
             {
 				"navigationBarTitleText": "任务详情"
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/option/option",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "设置"
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/about/about",
             "style" :                                                                                    
             {
@@ -155,8 +132,8 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/selectentrust/selectentrust",
             "style" :                                                                                    
             {
@@ -164,8 +141,8 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/feedback/feedback",
             "style" :                                                                                    
             {
@@ -173,8 +150,8 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/orderdetail/orderdetail",
             "style" :                                                                                    
             {
@@ -183,8 +160,8 @@
 				"navigationStyle": "custom",
 				"backgroundColorTop": "#3881ed"
             }
-        }
-        ,{
+        },
+		{
             "path" : "pages/entrustdetail/entrustdetail",
             "style" :                                                                                    
             {
@@ -192,8 +169,8 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/ordercomment/ordercomment",
             "style" :                                                                                    
             {
@@ -202,18 +179,8 @@
 				"navigationStyle": "custom",
 				"backgroundColorTop": "#3881ed"
             }
-        }
-		// ,{
-  //           "path" : "pages/entrustcomment/entrustcomment",
-  //           "style" :                                                                                    
-  //           {
-  //               "navigationBarTitleText": "",
-  //               "enablePullDownRefresh": false,
-		// 		"navigationStyle": "custom",
-		// 		"backgroundColorTop": "#3881ed"
-  //           }
-  //       }
-        ,{
+        },
+		{
             "path" : "pages/selectinvoice/selectinvoice",
             "style" :                                                                                    
             {
@@ -221,8 +188,8 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/invoicedetail/invoicedetail",
             "style" :                                                                                    
             {
@@ -232,15 +199,35 @@
 				"backgroundColorTop": "#3881ed"
             }
             
+        },
+        {
+        	"path" : "pages/limslogin/limslogin", 
+        	"style" : 
+        	{
+        		"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+        	}
+        },
+        {
+        	"path" : "pages/selecttodo/selecttodo",
+        	"style" : 
+        	{
+        		"navigationBarTitleText" : "待办"
+        	}
+        },
+        {
+        	"path" : "pages/todoaudit/todoaudit",
+        	"style" : 
+        	{
+        		"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+        	}
         }
     ],
 	"globalStyle": {
-		"pageOrientation": "portrait",
-		"navigationBarTitleText": "Hello uniapp",
-		
+		"autoscan":true, // easycom组件模式
 		"navigationBarTextStyle": "black",
-		// "navigationBarBackgroundColor": "#F8F8F8",
-		// "backgroundColor": "#F8F8F8",
+		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#ffffff",
 		"backgroundColor": "#ffffff"
 		
@@ -260,27 +247,12 @@
 	      "iconPath": "static/tabbar-icons/unSelected-icons/home.png",
 	      "selectedIconPath": "static/tabbar-icons/selected-icons/home.png"
 	    },
-		// {
-		//   "pagePath": "pages/post/post",
-		//   "text": "发现",
-		//   "iconPath": "static/tabbar-icons/unSelected-icons/faxian_3.png",
-		//   "selectedIconPath": "static/tabbar-icons/selected-icons/faxian_3.png"
-		// },
 	    {
 	      "pagePath": "pages/my/my",
 	      "text": "我的",
 	      "iconPath": "static/tabbar-icons/unSelected-icons/user.png",
 	      "selectedIconPath": "static/tabbar-icons/selected-icons/user.png"
 	    }
-		// ,
-		// {
-		//   "pagePath": "pages/index/index",
-		//   "text": "初始"
-		// },
-		// {
-		//   "pagePath": "pages/test/test",
-		//   "text": "测试"
-		// }
 	  ]
 	},
 	"uniIdRouter": {}

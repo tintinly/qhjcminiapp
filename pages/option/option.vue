@@ -3,7 +3,7 @@
 		<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
 			<view class="cu-item arrow" @click="cancelAcount">
 				<view class="content">
-					<text class="cuIcon-deletefill text-qhjc-blue"></text>
+					<text class="cuIcon-deletefill text-sunway-blue"></text>
 					<text class="text-black">账号注销</text>
 				</view>
 			</view>
@@ -14,6 +14,7 @@
 
 <script>
 	import utils from '../../common/util.js';
+	import { HTTP } from '../../common/http.js'
 	export default {
 		data() {
 			return {
@@ -22,25 +23,7 @@
 		},
 		methods: {
 			logout : function(e) {
-				uni.showLoading({
-					title: '正在退出'
-				});
-				getApp().globalData.openId = ''
-				getApp().globalData.phoneNumber = ''
-				getApp().globalData.clientList = []
-				try {
-					uni.clearStorageSync();
-				} catch (e) {
-					// error
-				}
-				utils.IsLogon();
-				var UserLogin = getApp().globalData.UserLogin;
-				if(!UserLogin){
-					uni.hideLoading()
-					wx.reLaunch({
-					  url: '../login/login',
-					})
-				}
+				utils.logout();
 			},
 			cancelAcount : function(e)	{
 				uni.showModal({
@@ -51,46 +34,24 @@
 							uni.showLoading({
 								title: '正在注销'
 							});
-							wx.request({
-								url : getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/cancel-account',
-								data : {
-									openId : getApp().globalData.openId,
-									phoneNumber : getApp().globalData.phoneNumber
-								},
-								method : 'POST',
-								success : res=>{
-									console.log("cancelAcount", res)
-								
-									uni.clearStorageSync();					
-									utils.IsLogon();
-									var UserLogin = getApp().globalData.UserLogin;
-									if(!UserLogin){
-										uni.hideLoading()
-										uni.reLaunch({
-										  url: '../login/login',
-										})
-										uni.showToast({
-											title: '账号已注销',
-											duration: 1000
-										});
-									} else{
-										uni.hideLoading()
-										uni.showToast({
-											title: '注销失败',
-											duration: 1000
-										});
-									}
-								},
-								fail : res=>{
-									uni.hideLoading()
-									uni.showToast({
-										title: '注销失败',
-										duration: 1000
-									});
+							HTTP(`/open/emc/projectfunction/module/bp/wechat/cancel-account`,{
+								openId : getApp().globalData.openId,
+								phoneNumber : getApp().globalData.phoneNumber
+							}).then(res=>{
+								utils.limsLogout();
+								uni.clearStorageSync();			
+								if(!utils.isLogin()){
+									uni.navigateTo({
+										url: '../login/login',
+									})
 								}
-							})
-						} else if (res.cancel) {
-							console.log('用户点击取消');
+							}).catch(err=>{
+								uni.hideLoading()
+								uni.showToast({
+									title: '注销失败',
+									duration: 1000
+								});
+							});
 						}
 					}
 				});
@@ -101,11 +62,5 @@
 </script>
 
 <style>
-	
-	.button{
-		border-radius: 80rpx;
-		margin: 50rpx 50rpx;
-		font-size: 35rpx;
-		/* background-color: cornflowerblue; */
-	}
+	@import url(../option/option.css);
 </style>

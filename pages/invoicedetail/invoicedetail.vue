@@ -38,7 +38,7 @@
 			<!-- <view class="bg-white margin-top margin-lr radius"  >
 				<view class="padding-lr">
 					<view class="solid-bottom padding-tb"  >
-						<view class=""><text class="cuIcon-form  text-qhjc-blue"></text>发票信息</view>
+						<view class=""><text class="cuIcon-form  text-sunway-blue"></text>发票信息</view>
 					</view>
 					<view class="flex dashed-bottom padding-tb-sm"  >
 						<view class="flex-sub "><view class="fl">发票号</view></view>
@@ -66,7 +66,7 @@
 			<view class="bg-white margin-top margin-lr radius"  >
 				<view class="padding-lr">
 					<view class="solid-bottom padding-tb"  >
-						<view class=""><text class="cuIcon-form  text-qhjc-blue"></text> <text class="text-bold">发票信息</text></view>
+						<view class=""><text class="cuIcon-form  text-sunway-blue"></text> <text class="text-bold">发票信息</text></view>
 					</view>
 					<view class="flex dashed-bottom padding-tb-sm"  >
 						<view class="flex-sub "><view class="text-grey fl">发票号</view></view>
@@ -95,13 +95,14 @@
 			<!-- 底部按钮栏 -->
 			<view class="margin-top" :style="'height:' + (unSafeButtomHeight + btnHeight * 1 + btnMargin * 2 * 1) + 'px;'  "></view>
 			<view class="btn-group-bottom" :style="'height:' + (unSafeButtomHeight + btnHeight * 1 + btnMargin * 2 * 1) + 'px;'  ">
-				<button  class="button bg-qhjc-blue" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " @click="viewInvoicePic(invoice.ext$.invoicepic)">查看发票</button>
+				<button  class="button bg-sunway-blue" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " @click="viewInvoicePic(invoice.ext$.invoicepic)">查看发票</button>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { HTTP } from '../../common/http.js';
 	export default {
 		data() {
 			return {
@@ -139,38 +140,19 @@
 				});
 			},
 			selectInvoiceDetail: function(invoiceId) {
-				uni.showLoading({
-					title: '查询中...',
-				})
-				uni.request({
-					url : getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/select-invoice-detail',
-					data : {
-						invoiceId : invoiceId,
-					},
-					method : getApp().globalData.method,
-					success : (res) => {
-						console.log(res)
-						var invoice = res.data.invoice;
-						this.invoice = invoice;
-						var contract = res.data.contract;
-						this.contract = contract;
-						var wxOrders = res.data.wxOrders;
-						if (wxOrders != undefined && wxOrders.length > 0) {
-							this.wxOrderId = wxOrders[0].id;
-						}
-					
-						uni.hideLoading()
-					},
-					fail : (res) =>{
-						console.log(res)
-						uni.hideLoading()
-						uni.showToast({
-							title: '网络错误',
-							icon: 'error',
-							duration: 1500
-						})
+				HTTP(`/open/emc/projectfunction/module/bp/wechat/select-invoice-detail`,{
+					invoiceId : invoiceId,
+				}).then(res=>{
+					var invoice = res.data.invoice;
+					this.invoice = invoice;
+					var contract = res.data.contract;
+					this.contract = contract;
+					var wxOrders = res.data.wxOrders;
+					if (wxOrders != undefined && wxOrders.length > 0) {
+						this.wxOrderId = wxOrders[0].id;
 					}
-				})
+				}).catch(err=>{
+				});
 			},
 			viewInvoicePic : function(downloadUrl){
 				var _this = this;

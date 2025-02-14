@@ -7,7 +7,7 @@
 			<text>{{address}}\n</text>
 		</view>
 	
-		<button  class="button bg-qhjc-blue" open-type='contact'><text class="text-white">客服会话</text></button>
+		<button  class="button bg-sunway-blue" open-type='contact'><text class="text-white">客服会话</text></button>
 	<!-- 	<uni-group class="map-card" mode="card" >
 			<view class="map">
 				<map id="map"

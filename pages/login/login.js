@@ -5,7 +5,7 @@ export default {
 		
 		getPhoneNumber(e) {
 			var that = this;
-			console.log(e);
+			console.log('微信手机授权快捷登录中',e);
 			var errMsg = e.detail.errMsg;
 			if (errMsg.indexOf("fail") > -1) {
 				uni.showToast({
@@ -21,262 +21,76 @@ export default {
 					var loginCode = res.code
 					console.log('微信登录授权码',loginCode);
 					if (loginCode) {
-						//发起网络请求
-						uni.showLoading({
-							title: '登陆中'
-						});
-						wx.request({
-							url: getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/get-openId',
-							method : 'POST',
-							data: {
+						HTTP(`/open/emc/projectfunction/module/bp/wechat/get-openId`,{
+							appId : getApp().globalData.appId,
+							loginCode: loginCode,
+						}).then(res=>{
+							console.log('微信身份信息',res)
+							var openId = res.data.openid
+							var sessionKey = res.data.session_key;
+							HTTP(`/open/emc/projectfunction/module/bp/wechat/get-phone`,{
 								appId : getApp().globalData.appId,
-								loginCode: loginCode,
-							},
-							success:(openIdData)=>{
-								console.log('微信身份信息',openIdData)
-								if (openIdData.statusCode === 500 || openIdData.statusCode === 404) {
+								phoneCode: phoneCode
+							}).then(res=>{
+								console.log("手机信息",res)
+								var phoneNumber = res.data.phone_info?.phoneNumber
+								HTTP(`/open/emc/projectfunction/module/bp/wechat/get-user-info`,{
+									openId : openId,
+									phoneNumber: phoneNumber
+								}).then(res=>{
+									console.log("用户信息",res)
+									var userInfo = res.data;
+									wx.setStorageSync('phoneNumber', phoneNumber);
+									wx.setStorageSync('openId', openId);
+									wx.setStorageSync('sessionKey', sessionKey);
+									wx.setStorageSync('userInfo', userInfo);
+									utils.isLogin();
+									that.selectRedDotCue();
+									uni.switchTab({
+										url: '../home/home',
+									})
+								}).catch(err=>{
+									utils.isLogin();
 									uni.showToast({
 										duration:1500,
-										title: '网络错误',
+										title: '登录失败',
 										icon : 'error'
 									})
-								}
-								wx.request({
-									url: getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/get-phone',
-									method : 'POST',
-									data: {
-										appId : getApp().globalData.appId,
-										phoneCode: phoneCode
-									},
-									success : (phoneData)=>{
-										var phoneNumber = phoneData.data.phone_info ? phoneData.data.phone_info.phoneNumber : undefined
-										wx.request({
-											url: getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/get-user-info',
-											data: {
-												openId : openIdData.data.openid,
-												phoneNumber: phoneNumber
-											},
-											method : 'POST',
-											success: (userInfoData) =>{
-												console.log("用户信息",userInfoData)
-												if (userInfoData.statusCode === 500 || userInfoData.statusCode === 404) {
-													uni.showToast({
-														duration:1500,
-														title: '网络错误',
-														icon : 'error'
-													})
-												}
-												var openId = openIdData.data.openid;
-												var sessionKey = openIdData.data.session_key;
-												wx.setStorageSync('phoneNumber', phoneNumber);
-												wx.setStorageSync('openId', openId);
-												wx.setStorageSync('sessionKey', sessionKey);
-												var userInfo = userInfoData.data;
-												if(userInfo.openId != undefined){
-													wx.setStorageSync('userInfo', userInfo);
-													console.log("用户信息",userInfo);
-													utils.isLogin();
-													that.selectRedDotCue();
-													uni.switchTab({
-														url: '../home/home',
-													})
-												}else {
-													utils.isLogin();
-													uni.showToast({
-														duration:1500,
-														title: '登录失败',
-														icon : 'error'
-													})
-												}
-												uni.hideLoading();
-											},
-											fail: userInfoData=>{
-												console.log('获取用户信息失败',userInfoData);
-												wx.navigateTo({
-													url: '../login/login',
-												});
-												uni.hideLoading();
-											},
-											// complete: ()=>{
-											// 	uni.hideLoading();
-											// }
-										})
-									},
-									fail : (phoneData)=>{
-										console.log('获取手机信息失败',phoneData);
-										wx.navigateTo({
-											url: '../login/login',
-										});
-										uni.hideLoading();
-									},
-									// complete: ()=>{
-									// 	uni.hideLoading();
-									// }
-								})
-							},
-							fail: openIdData=>{
-								console.log('获取openId失败',openIdData);
-								wx.navigateTo({
-									url: '../login/login',
 								});
-								uni.hideLoading();
-							},
-							// complete: ()=>{
-							// 	uni.hideLoading();
-							// }
-						})
-					} else {
-						console.log('登录失败！' + res.errMsg)
-					}
-				}
-			})
-			
-		},
-		
-		wxLogin() {
-			wx.login({
-				success: (res)=>{
-					var loginCode = res.code
-					console.log('微信登录授权码', loginCode);
-					if (loginCode) {
-						//发起网络请求
-						uni.showLoading({
-							title: '登陆中'
+							}).catch(err=>{
+							});
+						}).catch(err=>{
 						});
-						wx.request({
-							url: getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/get-openId',
-							method : 'POST',
-							data: {
-								appId : getApp().globalData.appId,
-								secret : getApp().globalData.secret,
-								loginCode: loginCode
-							},
-							success:(openIdData)=>{
-								console.log('微信身份信息',openIdData)
-								if (openIdData.statusCode === 500 || openIdData.statusCode === 404) {
-									uni.showToast({
-										duration:1500,
-										title: '网络错误',
-										icon : 'error'
-									})
-								}
-								wx.request({
-									url: getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/get-user-info',
-									data: {
-										openId : openIdData.data.openid
-									},
-									method : 'POST',
-									success: (userInfoData) =>{
-										console.log("用户信息",userInfoData)
-										if (userInfoData.statusCode === 500 || userInfoData.statusCode === 404) {
-											uni.showToast({
-												duration:1500,
-												title: '网络错误',
-												icon : 'error'
-											})
-										}
-										var openId = openIdData.data.openid;
-										wx.setStorageSync('openId', openId);
-										if(userInfoData.data.openId != undefined){
-											var userInfo = userInfoData.data;
-											wx.setStorageSync('userInfo', userInfo);
-											wx.setStorageSync('phoneNumber', userInfo.phoneNumber);
-											wx.setStorageSync('sessionKey', sessionKey);
-											utils.isLogin();
-										}else {
-											utils.isLogin();
-											wx.navigateTo({
-												url: '../login/login',
-											})
-										}
-										uni.hideLoading();
-									},
-									fail: userInfoData=>{
-										console.log('获取用户信息失败',userInfoData);
-										wx.navigateTo({
-											url: '../login/login',
-										});
-										uni.hideLoading();
-									},
-									// complete: ()=>{
-									// 	uni.hideLoading();
-									// }
-								})
-								
-							},
-							fail: openIdData=>{
-								console.log('获取openId失败',openIdData);
-								wx.navigateTo({
-									url: '../login/login',
-								});
-								uni.hideLoading();
-							},
-							// complete: ()=>{
-							// 	uni.hideLoading();
-							// }
-						  })
 					} else {
-						console.log('登录失败！' + res.errMsg)
+						console.log('无法获取微信登录授权码！' + res.errMsg)
 					}
 				}
 			})
 		},
 		
 		selectRedDotCue() {
-			wx.request({
-				url: getApp().globalData.host + '/open/emc/projectfunction/module/bp/wechat/select-red-dot-cue',
-				data: {
-					openId : getApp().globalData.openId,
-					clientContactId : getApp().globalData.userInfo.clientContactId,
-				},
-				method : 'POST',
-				success : (res) => {
-					if (res.statusCode != 200) {
-						uni.hideLoading()
-						uni.showToast({ 
-							title: '网络错误',
-							icon: 'error',
-							duration: 1500
-						})
-					} else if(res.data== {}){
-						wx.showToast({
-							title: '未查到相关信息',
-							icon: 'none',
-							duration: 1500
-						});
-					} else {
-						var data = res.data;
-						Object.keys(data).forEach(k=>{
-							getApp().globalData.redDotCue[k] = data[k];
-							uni.$emit(k, data[k]);
-						})
-						var tab1Cue = getApp().globalData.redDotCue.tab1Cue;
-						if (Number(tab1Cue) > 0) {
-							uni.setTabBarBadge({
-								index: 1,
-								text: String(tab1Cue),
-							});
-						} else {
-							uni.hideTabBarRedDot({
-								index: 1
-							});
-						}
-						uni.hideLoading()
-					}
-				},
-				fail : (res) =>{
-					resolve('fail');
-					uni.hideLoading()
-					uni.showToast({
-						title: '网络错误',
-						icon: 'error',
-						duration: 1500
-					})
-				},
-				// complete: ()=>{
-				// 	uni.hideLoading();
-				// }
-			})
+			HTTP(`/open/emc/projectfunction/module/bp/wechat/select-red-dot-cue`,{
+				openId : getApp().globalData.openId,
+				clientContactId : getApp().globalData.userInfo.clientContactId,
+			}).then(res=>{
+				var data = res.data;
+				Object.keys(data).forEach(k=>{
+					getApp().globalData.redDotCue[k] = data[k];
+					uni.$emit(k, data[k]);
+				})
+				var tab1Cue = getApp().globalData.redDotCue.tab1Cue;
+				if (Number(tab1Cue) > 0) {
+					uni.setTabBarBadge({
+						index: 1,
+						text: String(tab1Cue),
+					});
+				} else {
+					uni.hideTabBarRedDot({
+						index: 1
+					});
+				}
+			}).catch(err=>{
+			});
 		}
 	},
 		

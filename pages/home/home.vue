@@ -30,10 +30,15 @@
 						<block v-if="toCommentCue!=1">{{toCommentCue>99?'99+':toCommentCue}}</block>
 					</view>
 				</view>
-				<view class="function-grid-box" @tap="toPage('../selecttodo/selecttodo', true)" v-if="todoShow">
+				<view class="function-grid-box" @tap="toPage('../selecttodo/selecttodo', true)" v-if="limsShow">
 					<view class="text-xsl text-sunway-blue"><text class="cuIcon-check"></text></view>
 					<view class="text-lg text-bold"><text>待办/审批</text></view>
 					<view class="text-sm text-grey"><text>TODO/AUDIT</text></view>
+				</view>
+				<view class="function-grid-box" @tap="toPage('../select/select', true)" v-if="limsShow">
+					<view class="text-xsl text-sunway-blue"><text class="cuIcon-searchlist"></text></view>
+					<view class="text-lg text-bold"><text>相关查询</text></view>
+					<view class="text-sm text-grey"><text>QUERY</text></view>
 				</view>
 			</view>
 			
@@ -62,7 +67,7 @@
 			return {
 				toCommentCue : getApp().globalData.redDotCue.toCommentCue,
 				tab1Cue : getApp().globalData.redDotCue.tab1Cue,
-				todoShow : false,
+				limsShow : false,
 			}
 		},
 		onLoad() {
@@ -83,7 +88,7 @@
 			// 	})
 			// 	return;
 			// }
-			this.todoShow =  getApp().globalData.userInfo.userId != undefined;
+			this.limsShow =  getApp().globalData.userInfo.userId != undefined;
 			this.toCommentCue = getApp().globalData.redDotCue.toCommentCue
 			this.tab1Cue = getApp().globalData.redDotCue.tab1Cue;
 			if (Number(this.tab1Cue) > 0) {

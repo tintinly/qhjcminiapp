@@ -1,6 +1,18 @@
 <template>
 	<view>
 		<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+			<!-- <view v-if="limsIsLogin" class="cu-item arrow">
+				<view class="content">
+					<image src="../../static/image/gikam.svg"  mode="aspectFit"></image>
+					<text class="text-black">lims登录（已登录）</text>
+				</view>
+			</view>
+			<view v-else class="cu-item arrow" @click="limsLogin">
+				<view class="content">
+					<image src="../../static/image/gikam.svg"  mode="aspectFit"></image>
+					<text class="text-black">lims登录</text>
+				</view>
+			</view> -->
 			<view class="cu-item arrow" @click="cancelAcount">
 				<view class="content">
 					<text class="cuIcon-deletefill text-sunway-blue"></text>
@@ -18,12 +30,25 @@
 	export default {
 		data() {
 			return {
-				
+				limsIsLogin : getApp().globalData.cookie != undefined && getApp().globalData.cookie != ''
 			}
+		},
+		computed : {
 		},
 		methods: {
 			logout : function(e) {
 				utils.logout();
+			},
+			limsLogin : function(e) {
+				utils.tryLimsLogin().then(res=>{
+					this.limsIsLogin = true;
+				}).catch(err=>{
+					this.limsIsLogin = false;
+					uni.navigateTo({
+						url: '../limslogin/limslogin',
+					});
+				});
+				
 			},
 			cancelAcount : function(e)	{
 				uni.showModal({
@@ -34,7 +59,7 @@
 							uni.showLoading({
 								title: '正在注销'
 							});
-							HTTP(`/open/emc/projectfunction/module/bp/wechat/cancel-account`,{
+							HTTP(`/open/emc/module/bp/wechat/cancel-account`,{
 								openId : getApp().globalData.openId,
 								phoneNumber : getApp().globalData.phoneNumber
 							}).then(res=>{

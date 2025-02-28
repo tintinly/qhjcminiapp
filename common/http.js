@@ -50,6 +50,43 @@ const HTTP = (url,data = {}, header = {}, method = 'POST') => {
 	})
 }
 
+const HTTP2 = (url,data = {}, header = {}, method = 'POST') => {
+	if(!url){
+		_show_error('请求路径错误！！')
+		return
+	}
+	// 无感请求
+	console.log("请求地址:",getApp().globalData.host + url)
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: getApp().globalData.host + url,
+			method: method,
+			data: data,
+			header: header,
+			success: (res) => {
+				console.log(res)
+				if (res.statusCode == 200) {
+					if (!res.data?.error) {
+						resolve(res)
+					} else {
+						_show_error( res.data.message)
+						reject(res)
+					}
+				} else {
+					_show_error( res.data?.message)
+					reject(res)
+				}
+			},
+			fail: (err) => {
+				console.log(err)
+				_show_error(err.errMsg)
+				reject(err)
+			}
+		})
+	})
+}
+
 export {
-	HTTP
+	HTTP,
+	HTTP2
 }

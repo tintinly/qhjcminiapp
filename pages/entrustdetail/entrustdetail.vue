@@ -140,7 +140,7 @@
 					this.noData = true
 					return
 				}
-				HTTP(`/open/emc/projectfunction/module/bp/wechat/select-contract`,{
+				HTTP(`/open/emc/projectfunction/module/bp/wechat/select-project`,{
 					clientNo : getApp().globalData.userInfo.clientNo,
 					entrustId : this.entrustId
 				}).then(res=>{

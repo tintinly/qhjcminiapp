@@ -96,9 +96,11 @@
 		},
 		onLoad(e) {
 			this.wxOrderId = e.wxOrderId
-			this.longin = e.longin
-			if (getApp().globalData.UserLogin == false) {
-				loginjs.methods.wxLogin();
+			if(!utils.isLogin()){
+				uni.navigateTo({
+					url: '../login/login?needBack=true',
+				})
+				return;
 			}
 			this.selectOrderComment(e.wxOrderId)
 		},

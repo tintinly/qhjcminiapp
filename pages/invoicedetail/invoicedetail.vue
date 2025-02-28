@@ -22,9 +22,10 @@
 			
 			<view class="bg-white margin-lr radius ">
 				<view class="padding" >
-					<view class="">发票金额 ：￥1600</view>
+					<view class="">发票金额 ：￥{{invoice.invoiceNo}}</view>
+					<view class="">填开日期 ：{{item.invoiceFilledDate}}</view>
 					<view class="flex margin-top-sm">
-						<view class="flex-treble">一张发票，含1笔订单</view>
+						<view class="flex-treble">一张发票，含{{wxOrderId ? 1 : 0}}笔订单</view>
 						<view class="flex-sub" v-if="wxOrderId">
 							<view class="fr"  @click="toPage('../orderdetail/orderdetail?wxOrderId=' + wxOrderId)">
 								<text class="text-blue">查看订单</text><uni-icons custom-prefix="iconfont" type="icon-xiangyoujiantou" size="10px"></uni-icons>

@@ -112,7 +112,7 @@
 			},
 			
 			loadData : function(e) {
-				HTTP(`/open/emc/projectfunction/module/bp/wechat/select-contract`,{
+				HTTP(`/open/emc/projectfunction/module/bp/wechat/select-project`,{
 					clientNo : getApp().globalData.userInfo.clientNo
 				}).then(res=>{
 					var dataList = res.data;

@@ -1,0 +1,76 @@
+.inputBox {
+  /* 最外层的盒子 */
+  margin: 50rpx;
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+}
+
+.inputBox view:first-child {
+  /* input框外层盒子的样式 */
+  width: 70%;
+}
+
+.inputBox view:last-child {
+  /* 按钮外层盒子的样式 */
+  width: 30%;
+  box-shadow: 0rpx 6rpx 16rpx 0rpx rgba(0, 0, 0, 0.16);
+  border: 1px solid rgb(196, 210, 236);
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 60rpx;
+  border-bottom-right-radius: 60rpx;
+  color: var(--sunway-primary-color);
+}
+
+.inputBox input{
+    border: 1px solid rgb(196, 210, 236);
+    opacity: 0.8;
+    box-shadow: 0rpx 6rpx 12rpx 0rpx rgba(0, 0, 0, 0.16);
+    background: #ffffff;
+    padding-left: 20rpx;
+    height: 80rpx;
+    border-top-left-radius: 60rpx;
+    border-bottom-left-radius: 60rpx;
+}
+
+.codeInputBox {
+  /* 最外层的盒子 */
+  display: flex;
+  align-items: center;
+  /* font-size: 28rpx; */
+}
+
+.codeInputBox view:first-child {
+  /* input框外层盒子的样式 */
+  width: 70%;
+}
+
+.codeInputBox view:last-child {
+  /* 按钮外层盒子的样式 */
+  width: 40%;
+  /* height: 80rpx; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sunway-primary-color);
+}
+
+.codeInputBox input{
+    background: #ffffff;
+    /* padding-left: 20rpx; */
+    /* height: 80rpx; */
+}
+
+.errorMsg {
+	margin: 10rpx 50rpx;
+	padding : 10rpx;
+	text-align: center;
+}
+
+.title-text-right-text {
+	color: #497e7e;
+	background-color: #d9f8fa;
+}

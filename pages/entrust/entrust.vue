@@ -47,7 +47,7 @@
 		</view>
 		
 		
-		<button class="button bt-sunway-blue" @click="submit"><text class="text-white">提交</text></button>
+		<button class="button btn-sunway-blue" @click="submit"><text class="text-white">提交</text></button>
 		
 	</view>
 

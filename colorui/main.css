@@ -43,6 +43,14 @@ image {
 	border-radius: 6upx;
 }
 
+.radius-lg {
+	border-radius: 20rpx;
+}
+
+.radius-xl {
+	border-radius: 80rpx;
+}
+
 
 
 /* ==================

@@ -216,6 +216,13 @@
         		"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
         	}
+        },
+        {
+        	"path" : "pages/querybysms/querybysms",
+        	"style" : 
+        	{
+        		"navigationBarTitleText" : "短信验证查询任务"
+        	}
         }
     ],
 	"globalStyle": {

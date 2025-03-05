@@ -22,38 +22,46 @@
 			<view class="flex justify-end" :style="'height:' + (btnHeight * 1 + btnMargin * 2 * 1) + 'px;'  ">
 				<button class="button  bg-red text-white" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " @click="rejectable" >拒绝</button>
 				<button class="button bg-sunway-blue text-white" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " @click="pass" >通过</button>
-				<view class="cu-modal" :class="modalName=='rejectModal'?'show':''">
-					<view class="cu-dialog">
-						<view class="cu-bar bg-white justify-end">
-							<view class="content">选择回退节点</view>
-							<view class="action" @tap="hideModal">
-								<text class="cuIcon-close text-red"></text>
-							</view>
-						</view>
-						<view >
-							<radio-group class="block" @change="radioChange">
-								<view class="cu-list menu text-left">
-									<view class="cu-item" v-for="(item,index) in rejectableList" :key="index">
-										<label class="flex justify-between align-center flex-sub">
-											<view class="flex-sub">{{item.taskName}}</view>
-											<radio class="round" :class="radio=='radio' + index?'checked':''" :checked="radio=='radio' + index?true:false"
-											 :value="item.statusCode"></radio>
-										</label>
-									</view>
-								</view>
-							</radio-group>
-						</view>
-						<view class="cu-bar bg-white justify-end">
-							<view class="action">
-								<button class="cu-btn line-green text-green" @tap="hideModal">取消</button>
-								<button class="cu-btn bg-green margin-left" @tap="reject">确定</button>
-							</view>
-						</view>
+			</view>
+		</view>
+		
+		<sunway-bottom-btn-group>
+			<view class="flex justify-end">
+				<view class="margin-right-sm"><button class="button bg-red text-white" @click="rejectable" >拒绝</button></view>
+				<view><button class="button bg-sunway-blue" @click="pass" >通过</button></view>
+			</view>
+		</sunway-bottom-btn-group>
+		
+		<view class="cu-modal" :class="modalName=='rejectModal'?'show':''">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">选择回退节点</view>
+					<view class="action" @tap="hideModal">
+						<text class="cuIcon-close text-red"></text>
 					</view>
 				</view>
+				<view >
+					<radio-group class="block" @change="radioChange">
+						<view class="cu-list menu text-left">
+							<view class="cu-item" v-for="(item,index) in rejectableList" :key="index">
+								<label class="flex justify-between align-center flex-sub">
+									<view class="flex-sub">{{item.taskName}}</view>
+									<radio class="round" :class="radio=='radio' + index?'checked':''" :checked="radio=='radio' + index?true:false"
+									 :value="item.statusCode"></radio>
+								</label>
+							</view>
+						</view>
+					</radio-group>
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" @tap="hideModal">取消</button>
+						<button class="cu-btn bg-green margin-left" @tap="reject">确定</button>
+					</view>
 				</view>
 			</view>
 		</view>
+		
 	</view>
 </template>
 

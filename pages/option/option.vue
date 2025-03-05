@@ -59,7 +59,7 @@
 							uni.showLoading({
 								title: '正在注销'
 							});
-							HTTP(`/open/emc/module/bp/wechat/cancel-account`,{
+							HTTP(`/open/emc/projectfunction/module/bp/wechat/cancel-account`,{
 								openId : getApp().globalData.openId,
 								phoneNumber : getApp().globalData.phoneNumber
 							}).then(res=>{

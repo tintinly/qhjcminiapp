@@ -5,10 +5,10 @@
 			};
 		},
 		globalData : {
-			// host : 'https://lims.qiuhaotesting.com:8091',
+			host : 'https://lims.qiuhaotesting.com:8091',
 			// host : 'http://58.215.200.126:8090',
 			// host : 'http://localhost:8088',
-			host : 'http://169.254.1.109:8088',
+			// host : 'http://169.254.3.171:8088',
 			// host : 'http://cn-nd-plc-1.openfrp.top:55671',
 			method : 'POST',
 			UserLogin : false,
@@ -141,9 +141,15 @@
 		color: #ffffff;
 	}
 	/**按钮**/
-	.bt-sunway-blue {
+	.btn-sunway-blue {
 		background-color: var(--sunway-minor-color, black);
 		color: #ffffff;
+	}
+	.btn-sunway {
+		background-color: var(--sunway-minor-color, black);
+		color: #ffffff;
+		border-radius : 80rpx;
+		line-height : 80px;
 	}
 </style>
 	

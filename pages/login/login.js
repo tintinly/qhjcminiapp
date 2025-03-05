@@ -1,7 +1,74 @@
-import { HTTP } from '../../common/http.js'
+import { HTTP,HTTP2 } from '../../common/http.js'
 import utils from '../../common/util.js'
 export default {
 	methods: {
+		// getPhoneNumber 约等于 preLogin + loginByPhone
+		
+		preLogin() {
+			return new Promise((resolve, reject) => {
+				wx.login({
+					success: (res)=>{
+						var loginCode = res.code
+						console.log('微信登录授权码',loginCode);
+						if (loginCode) {
+							HTTP2(`/open/emc/projectfunction/module/bp/wechat/get-openId`,{
+								appId : getApp().globalData.appId,
+								loginCode: loginCode,
+							}).then(res=>{
+								console.log('微信身份信息',res)
+								var openId = res.data.openid
+								var sessionKey = res.data.session_key;
+								HTTP2(`/open/emc/projectfunction/module/bp/wechat/get-user-info`,{
+									openId : openId,
+									// phoneNumber: undefined
+								}).then(res=>{
+									console.log("用户信息",res)
+									wx.setStorageSync('openId', openId);
+									wx.setStorageSync('sessionKey', sessionKey);
+									var userInfo = res.data;
+									var phoneNumber = userInfo.phoneNumber
+									resolve(phoneNumber);
+								}).catch(err=>{
+									reject(err);
+								});
+							}).catch(err=>{
+								reject(err);
+							});
+						} else {
+							console.log('无法获取微信登录授权码！' + res.errMsg)
+							reject(res.errMsg);
+						}
+					}
+				})
+			})
+		},
+		
+		loginByPhone(e) {
+			var that = this;
+			var phoneNumber = e;
+			var openId = wx.getStorageSync('openId');
+			HTTP(`/open/emc/projectfunction/module/bp/wechat/get-user-info`,{
+				openId : openId,
+				phoneNumber: phoneNumber
+			}).then(res=>{
+				console.log("用户信息",res)
+				var userInfo = res.data;
+				wx.setStorageSync('phoneNumber', phoneNumber);
+				wx.setStorageSync('userInfo', userInfo);
+				utils.isLogin();
+				that.selectRedDotCue();
+				uni.switchTab({
+					url: '../home/home',
+				})
+			}).catch(err=>{
+				utils.isLogin();
+				uni.showToast({
+					duration:1500,
+					title: '登录失败',
+					icon : 'error'
+				})
+			});
+		},
 		
 		getPhoneNumber(e) {
 			var that = this;

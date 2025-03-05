@@ -66,7 +66,7 @@
 			</view>
 		</view>
 		
-		<button class="button bt-sunway-blue"  @click="saveUserInfo"><text class="text-white">保存</text></button>
+		<button class="button btn-sunway-blue"  @click="saveUserInfo"><text class="text-white">保存</text></button>
 		<button class="button bg-white"  @click="logout"><text class="text-black">退出登录</text></button>
 		
 		

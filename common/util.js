@@ -200,6 +200,57 @@ function  logout() {
 	}
 };
 
+/* ==================
+	        登录相关
+	 ==================== */
+
+// 设置临时缓存
+function setTempCache(key, value, expireHours) {
+  const currentTime = Date.now();
+  const expireTime = currentTime + expireHours * 60 * 60 * 1000; // 转换为毫秒
+  if (key && value && expireHours) {
+	  uni.setStorage({
+	    key: key,
+	    data: {
+	      value: value,
+	      expireTime: expireTime
+	    },
+	    success: function() {
+	      console.log(`临时缓存【${key}】设置成功,有效期${expireHours}个小时`);
+	    }
+	  });
+  } else {
+	  console.log('请检查临时缓存设置参数');
+  }
+  
+}
+
+// 获取临时缓存
+function getTempCache(key) {
+  const res = uni.getStorageSync(key);
+  if (res && res.expireTime > Date.now()) {
+    return res.value;
+  } else {
+    uni.removeStorage({
+      key: key,
+      success: function() {
+        console.log(`缓存【${key}】已过期，已移除`);
+      }
+    });
+    return null; // 缓存过期，返回null
+  }
+}
+
+// 获取临时缓存
+function clearTempCache(key) {
+  uni.removeStorage({
+    key: key,
+    success: function() {
+      console.log(`已移除缓存【${key}】`);
+    }
+  });
+}
+
 
 export default{
 	formatTime,
@@ -209,5 +260,8 @@ export default{
 	ellipsisFileName,
 	logout,
 	limsLogout,
-	tryLimsLogin
+	tryLimsLogin,
+	setTempCache,
+	getTempCache,
+	clearTempCache
 }

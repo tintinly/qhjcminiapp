@@ -12,7 +12,10 @@
 			<image mode="widthFix" src="../../static/image/science-detect.svg"></image>
 		</view>
 		
-		<button class="button bt-sunway-blue" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber"><text>一键登录/注册</text></button>
+		<!--需授权手机号的登录-->
+		<button v-if="phoneNumber == undefined || phoneNumber == ''" class="button btn-sunway-blue" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber"><text>一键登录</text></button>
+		<!--无需授权手机号的登录-->
+		<button v-else class="button btn-sunway-blue"  @click="loginByPhone"><text>一键登录</text></button>
 		
 		<!-- <view class="login-way-box">
 			<view class="login-way-title">
@@ -35,7 +38,8 @@
 		data () {
 			return {
 				testvalue: '',
-				backShow : false
+				backShow : false,
+				phoneNumber : ''
 			}
 		},
 		methods:{
@@ -44,6 +48,9 @@
 			},
 			getPhoneNumber(e){
 				login.methods.getPhoneNumber(e)
+			},
+			loginByPhone(e){
+				login.methods.loginByPhone(this.phoneNumber);
 			},
 			toPage : function (url){
 				uni.navigateTo({
@@ -59,6 +66,13 @@
 		},
 		onLoad(e) {
 		  this.backShow = e.needBack && JSON.parse(e.needBack) ? true : false; 
+		  // 预登录检查是否绑定了手机号
+		  login.methods.preLogin().then(res=>{
+		  	this.phoneNumber = res;
+		  	console.log(this.phoneNumber == undefined || this.phoneNumber == '' ? '预登录失败' : '已预登录');
+		  }).catch(err=>{
+		  	console.log('预登录失败');
+		  });
 		},
 	}
 </script>

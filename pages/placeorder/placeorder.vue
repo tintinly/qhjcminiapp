@@ -192,7 +192,7 @@
 		
 		
 		<view class="padding-bottom-xs">
-			<button class="button bt-sunway-blue" @tap="submit"><text class="text-white">下单</text></button>
+			<button class="button btn-sunway-blue" @tap="submit"><text class="text-white">下单</text></button>
 		</view>
 	</view>
 </template>

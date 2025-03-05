@@ -3,56 +3,81 @@
 	<view>
 		<view class="background">
 				<!-- <button class="home-top"></button> -->
-			<view class="home-top" >
+			<view class=" home-top" >
 				<image mode="widthFix" class="home-top-img" src="/static/image/home-top.jpg"></image>
 			</view>
-			<view class="function-grid">
-				<view class="function-grid-box" @tap="toPage('../placeorder/placeorder', true)">
-					<view class="text-xsl text-sunway-blue "><text class="cuIcon-cart"></text></view>
-					<view class="text-lg text-bold"><text>自助下单</text></view>
-					<view class="text-sm text-grey"><text>ORDER</text></view> 
-				</view>
-				<view class="function-grid-box" @tap="toPage('../entrust/entrust', true)">
-					<view class="text-xsl text-sunway-blue"><text class="cuIcon-edit"></text></view>
-					<view class="text-lg text-bold"><text>检测委托</text></view>
-					<view class="text-sm text-grey"><text>ENTRUST</text></view>
-				</view>
-				<view class="function-grid-box" @tap="toPage('../selectproject/selectproject', true)">
-					<view class="text-xsl text-sunway-blue"><text class="cuIcon-searchlist"></text></view>
-					<view class="text-lg text-bold"><text>任务查询</text></view>
-					<view class="text-sm text-grey"><text>QUERY</text></view>
-				</view>
-				<view class="function-grid-box" @tap="toPage('../selectorder/selectorder?tabIndex=3', true)">
-					<view class="text-xsl text-sunway-blue"><text class="cuIcon-evaluate"></text></view>
-					<view class="text-lg text-bold"><text>客户评价</text></view>
-					<view class="text-sm text-grey"><text>EVALUATE</text></view>
-					<view class="tab-tag" v-if="toCommentCue > 0" >
-						<block v-if="toCommentCue!=1">{{toCommentCue>99?'99+':toCommentCue}}</block>
+			<view class="function-box margin">
+				<view class="function-grid">
+					<view class="function-line" hover-class="function-line-active" @tap="toPage('../querybysms/querybysms', true)">
+						<view class="text-xsl text-sunway-blue "><text class="cuIcon-search"></text></view>
+						<view class="text-lg text-bold"><text>短信验证查询任务</text></view>
+						<view class="text-sm text-grey"><text>QUERY</text></view> 
+					</view>
+					<view class="function-item" hover-class="function-item-active" @tap="toPage('../placeorder/placeorder', true)">
+						<view class="text-xsl text-sunway-blue "><text class="cuIcon-cart"></text></view>
+						<view class="text-lg text-bold"><text>自助下单</text></view>
+						<view class="text-sm text-grey"><text>ORDER</text></view> 
+					</view>
+					<view class="function-item" hover-class="function-item-active" @tap="toPage('../entrust/entrust', true)">
+						<view class="text-xsl text-sunway-blue"><text class="cuIcon-edit"></text></view>
+						<view class="text-lg text-bold"><text>检测委托</text></view>
+						<view class="text-sm text-grey"><text>ENTRUST</text></view>
+					</view>
+					<view class="function-item" hover-class="function-item-active" @tap="toPage('../selectproject/selectproject', true)">
+						<view class="text-xsl text-sunway-blue"><text class="cuIcon-list"></text></view>
+						<view class="text-lg text-bold"><text>任务进度</text></view>
+						<view class="text-sm text-grey"><text>PROGRESS</text></view>
+					</view>
+					<view class="function-item" hover-class="function-item-active" @tap="toPage('../selectorder/selectorder?tabIndex=3', true)">
+						<view class="text-xsl text-sunway-blue"><text class="cuIcon-evaluate"></text></view>
+						<view class="text-lg text-bold"><text>客户评价</text></view>
+						<view class="text-sm text-grey"><text>EVALUATE</text></view>
+						<view class="tab-tag" v-if="toCommentCue > 0" >
+							<block v-if="toCommentCue!=1">{{toCommentCue>99?'99+':toCommentCue}}</block>
+						</view>
+					</view>
+					<view class="function-item" hover-class="function-item-active" @tap="toPage('../selecttodo/selecttodo', true)" v-if="limsShow">
+						<view class="text-xsl text-sunway-blue"><text class="cuIcon-check"></text></view>
+						<view class="text-lg text-bold"><text>待办/审批</text></view>
+						<view class="text-sm text-grey"><text>TODO/AUDIT</text></view>
 					</view>
 				</view>
-				<view class="function-grid-box" @tap="toPage('../selecttodo/selecttodo', true)" v-if="limsShow">
-					<view class="text-xsl text-sunway-blue"><text class="cuIcon-check"></text></view>
-					<view class="text-lg text-bold"><text>待办/审批</text></view>
-					<view class="text-sm text-grey"><text>TODO/AUDIT</text></view>
-				</view>
-				<view class="function-grid-box" @tap="toPage('../select/select', true)" v-if="limsShow">
-					<view class="text-xsl text-sunway-blue"><text class="cuIcon-searchlist"></text></view>
-					<view class="text-lg text-bold"><text>相关查询</text></view>
-					<view class="text-sm text-grey"><text>QUERY</text></view>
+			</view>
+			
+			<view v-if="limsShow" class="query-box">
+				<view class="margin-sm text-bold text-xl">LIMS查询</view>
+				<view class="grid col-4 ">
+				    <view class="query-item " hover-class="query-item-active" @click="toPage('../querycontract/querycontract', true)">
+						<view class="text-xsl text-blue"><text class="cuIcon-edit"></text></view>
+						<view class=""><text>合同查询</text></view>
+					</view>
+				    <view class="query-item " hover-class="query-item-active" @click="toPage('../queryproject/queryproject', true)">
+						<view class="text-xsl text-red"><text class="cuIcon-searchlist"></text></view>
+						<view class=""><text>任务查询</text></view>
+					</view>
+				    <view class="query-item " hover-class="query-item-active" @click="toPage('../queryinvoice/queryinvoice', true)">
+						<view class="text-xsl text-green"><text class="cuIcon-ticket"></text></view>
+						<view class=""><text>发票查询</text></view>
+					</view>
+				    <view class="query-item " hover-class="query-item-active" @click="toPage('../querypayment/querypayment', true)">
+						<view class="text-xsl text-yellow"><text class="cuIcon-recharge"></text></view>
+						<view class=""><text>回款查询</text></view>
+					</view>
 				</view>
 			</view>
+			
 			
 			<button class="button-image bg-sunway-blue"  @click="toggle('center')">
 				<view class="button-text1 text-df">
 					<text class="  text-white">关注公众号</text>
 				</view>
 				<view class="button-text2 text-df ">
-					<text class="text-white">了解秋毫更多信息</text>
+					<text class="text-white">了解中孚更多信息</text>
 				</view>
 				
 				<image mode="aspectFit"  src="../../static/image/qrCode.jpg"></image></button>
 			<uni-popup ref="popup" background-color="#fff" @change="change">
-				<view class="popup-content" ><image mode="aspectFit" show-menu-by-longpress="true" src="../../static/image/qrCode.jpg"></image></view>
+				<view class="popup-content" ><!-- <image mode="aspectFit" show-menu-by-longpress="true" src="../../static/image/qrCode.jpg"></image> --></view>
 			</uni-popup>
 		</view>
 	

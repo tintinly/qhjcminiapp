@@ -93,11 +93,9 @@
 			</view>
 			
 			
-			<!-- 底部按钮栏 -->
-			<view class="margin-top" :style="'height:' + (unSafeButtomHeight + btnHeight * 1 + btnMargin * 2 * 1) + 'px;'  "></view>
-			<view class="btn-group-bottom" :style="'height:' + (unSafeButtomHeight + btnHeight * 1 + btnMargin * 2 * 1) + 'px;'  ">
-				<button  class="button bg-sunway-blue" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " @click="viewInvoicePic(invoice.ext$.invoicepic)">查看发票</button>
-			</view>
+			<sunway-bottom-btn-group>
+				<button  class="button btn-sunway-blue" @click="viewInvoicePic(invoice.ext$.invoicepic)">查看发票</button>
+			</sunway-bottom-btn-group>
 		</view>
 	</view>
 </template>

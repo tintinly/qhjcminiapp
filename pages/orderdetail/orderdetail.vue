@@ -209,37 +209,14 @@
 			
 		</view>
 		
-		<!-- 底部按钮栏 -->
-		<view class="margin-top" :style="'height:' + (unSafeButtomHeight + btnHeight * 1 + btnMargin * 2 * 1) + 'px;'  "></view>
-		<view class="btn-group-bottom " :style="'height:' + (unSafeButtomHeight + btnHeight * 1 + btnMargin * 2 * 1) + 'px;'  ">
-			<view class="flex justify-end" :style="'height:' + (btnHeight * 1 + btnMargin * 2 * 1) + 'px;'  ">
-				<button class="button bg-sunway-blue text-white" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " @click="pay" v-if="order.tradeState === 'NOTPAY'"  >立即支付</button>
-				<button class="button  bg-sunway-blue text-white" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " @click="cancelWxOrder" v-if="order.tradeState === 'NOTPAY'" >取消订单</button>
-				<button class="button  bg-yellow text-white" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " @click="commentWxOrder" v-if="order.tradeState === 'SUCCESS'">评价</button>
-				<button class="button bg-green text-white" :style="'line-height:' + btnHeight + 'px; margin : ' + btnMargin + 'px ;' " open-type='contact'>联系客服</button>
+		<sunway-bottom-btn-group>
+			<view class="flex justify-end">
+				<view v-if="order.tradeState === 'NOTPAY'" class="margin-right-sm"><button class="radius-xl btn-sunway-blue" @click="pay" >立即支付</button></view>
+				<view v-if="order.tradeState === 'NOTPAY'" class="margin-right-sm"><button class="radius-xl btn-sunway-blue" @click="cancelWxOrder" >取消订单</button></view>
+				<view v-if="order.tradeState === 'SUCCESS'" class="margin-right-sm"><button class="radius-xl  bg-yellow text-white" @click="commentWxOrder" >评价</button></view>
+				<view class="margin-right-sm"><button class="radius-xl bg-green text-white" open-type='contact'>联系客服</button></view>
 			</view>
-		</view>
-		<!-- 底部按钮栏 -->
-	<!-- 	<view :style=" 'height : ' + (unSafeButtomHeight + btnGroupHeight) + 'px;'">
-			<view class="btn-group-bottom" :style="'height:' + (unSafeButtomHeight + btnGroupHeight) + 'px;'  ">
-				<view class="btn-group" :style="'bottom :' + unSafeButtomHeight + 'px;' + 'height : ' + btnGroupHeight + 'px;' ">
-					<view class="margin-right-sm text-center"  v-if="order.tradeState === 'NOTPAY'">
-						<button class="cu-btn sm round lines-blue" @click="pay">立即支付</button>
-					</view>
-					<view class="margin-right-sm text-center"  v-if="order.tradeState === 'NOTPAY'">
-						<button class="cu-btn sm round lines-blue" @click="cancelWxOrder">取消订单</button>
-					</view> -->
-					<!-- <view class="margin-right-sm text-center" v-if="order.tradeState === 'SUCCESS' && order.comment === '0' " > -->
-				<!-- 	<view class="margin-right-sm text-center" v-if="order.tradeState === 'SUCCESS' " >
-						<button class="cu-btn sm round lines-yellow" @click="commentWxOrder">评&nbsp;&nbsp;&nbsp;&nbsp;价</button>
-					</view>
-					<view class="margin-right-sm text-center"  >
-						<button class="cu-btn sm round lines-blue" open-type='contact'>联系客服</button>
-					</view>
-				</view>
-			</view>
-		</view> -->
-		
+		</sunway-bottom-btn-group>
 	</view>
 </template>
 
